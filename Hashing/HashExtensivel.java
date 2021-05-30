@@ -34,10 +34,10 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Construtor da classe.
-    * Entrada: Constructor<T>, inteiro de quantidade maxima por cesto e inteiro profundidade local.
-    * Saída: Preenchimento dos atributos da classe.
-    */
+     * Descrição: Construtor da classe. Entrada: Constructor<T>, inteiro de
+     * quantidade maxima por cesto e inteiro profundidade local. Saída:
+     * Preenchimento dos atributos da classe.
+     */
     public Cesto(Constructor<T> ct, int qtdmax, int pl) throws Exception {
       construtor = ct;
       if (qtdmax > 32767)
@@ -53,10 +53,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: cria uma nova alocação de buffer com os tamanhos do atual output stream no formato de um vetor de bytes
-    * Entrada: void
-    * Saída: vetor de bytes
-    */
+     * Descrição: cria uma nova alocação de buffer com os tamanhos do atual output
+     * stream no formato de um vetor de bytes Entrada: void Saída: vetor de bytes
+     */
     public byte[] toByteArray() throws Exception {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       DataOutputStream dos = new DataOutputStream(baos);
@@ -76,10 +75,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: recebe um array de bytes e carrega os dados na memoria principal
-    * Entrada: vetor de byte ba
-    * Saída: preenche os elementos do cesto
-    */
+     * Descrição: recebe um array de bytes e carrega os dados na memoria principal
+     * Entrada: vetor de byte ba Saída: preenche os elementos do cesto
+     */
     public void fromByteArray(byte[] ba) throws Exception {
       ByteArrayInputStream bais = new ByteArrayInputStream(ba);
       DataInputStream dis = new DataInputStream(bais);
@@ -99,10 +97,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Boolean Cria um bucket.
-    * Entrada: um elemento T a ser inserido no cesto.
-    * Saída: Boolean true confirmando a criação.
-    */
+     * Descrição: Boolean Cria um bucket. Entrada: um elemento T a ser inserido no
+     * cesto. Saída: Boolean true confirmando a criação.
+     */
     public boolean create(T elem) {
       if (full())
         return false;
@@ -115,10 +112,10 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Procura no cesto um elemento ao passar a sua chave de hash.
-    * Entrada: Inteiro com o valor da chave resultante do hash.
-    * Saída: Retorna um elemento ou null.
-    */
+     * Descrição: Procura no cesto um elemento ao passar a sua chave de hash.
+     * Entrada: Inteiro com o valor da chave resultante do hash. Saída: Retorna um
+     * elemento ou null.
+     */
     public T read(int chave) {
       if (empty())
         return null;
@@ -132,10 +129,10 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Substitui o elemento recebido pelo da seu correspondente, atualizando.
-    * Entrada: Elemento do tipo T.
-    * Saída: Retorna um boolean confirmando a exclusão ou não.
-    */
+     * Descrição: Substitui o elemento recebido pelo da seu correspondente,
+     * atualizando. Entrada: Elemento do tipo T. Saída: Retorna um boolean
+     * confirmando a exclusão ou não.
+     */
     public boolean update(T elem) {
       if (empty())
         return false;
@@ -148,12 +145,12 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
       } else
         return false;
     }
-    
+
     /*
-    * Descrição: Procura e deleta um elemento pela sua chave.
-    * Entrada: Inteiro com o valor da chave resultante do hash.
-    * Saída: Boolean true confirmando a exclusão ou false indicando falha na exclusão.
-    */
+     * Descrição: Procura e deleta um elemento pela sua chave. Entrada: Inteiro com
+     * o valor da chave resultante do hash. Saída: Boolean true confirmando a
+     * exclusão ou false indicando falha na exclusão.
+     */
     public boolean delete(int chave) {
       if (empty())
         return false;
@@ -169,28 +166,26 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Boolean verifica se está vazio.
-    * Entrada: void.
-    * Saída: Boolean true se o valor de quantidade for zero ou false caso diferente de zero.
-    */
+     * Descrição: Boolean verifica se está vazio. Entrada: void. Saída: Boolean true
+     * se o valor de quantidade for zero ou false caso diferente de zero.
+     */
     public boolean empty() {
       return quantidade == 0;
     }
 
     /*
-    * Descrição: Boolean verifica se está cheio.
-    * Entrada: void.
-    * Saída: Boolean true se o valor de quantidade for igual ao de quantidade máxima ou false caso diferente.
-    */
+     * Descrição: Boolean verifica se está cheio. Entrada: void. Saída: Boolean true
+     * se o valor de quantidade for igual ao de quantidade máxima ou false caso
+     * diferente.
+     */
     public boolean full() {
       return quantidade == quantidadeMaxima;
     }
 
     /*
-    * Descrição: Retorna os elementos em formato de string.
-    * Entrada: void.
-    * Saída: String s com a descritiva do elemento.
-    */
+     * Descrição: Retorna os elementos em formato de string. Entrada: void. Saída:
+     * String s com a descritiva do elemento.
+     */
     public String toString() {
       String s = "Profundidade Local: " + profundidadeLocal + "\nQuantidade: " + quantidade + "\n| ";
       int i = 0;
@@ -206,10 +201,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Método que retorna o tamanho do cesto em bytes.
-    * Entrada: void.
-    * Saída: Inteiro bytesPorCesto com o valor do tamanho do cesto em bytes.
-    */
+     * Descrição: Método que retorna o tamanho do cesto em bytes. Entrada: void.
+     * Saída: Inteiro bytesPorCesto com o valor do tamanho do cesto em bytes.
+     */
     public int size() {
       return bytesPorCesto;
     }
@@ -220,12 +214,11 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
 
     byte profundidadeGlobal;
     long[] enderecos;
-    
+
     /*
-    * Descrição: Construtor da classe Diretorio.
-    * Entrada: void.
-    * Saída: Preenchimento dos atributos da classe.
-    */
+     * Descrição: Construtor da classe Diretorio. Entrada: void. Saída:
+     * Preenchimento dos atributos da classe.
+     */
     public Diretorio() {
       profundidadeGlobal = 0;
       enderecos = new long[1];
@@ -233,10 +226,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Atualiza o endereco de um elemento.
-    * Entrada: novo endereço p com elemento e.
-    * Saída: Boolean com sucesso ou não na atualização.
-    */
+     * Descrição: Atualiza o endereco de um elemento. Entrada: novo endereço p com
+     * elemento e. Saída: Boolean com sucesso ou não na atualização.
+     */
     public boolean atualizaEndereco(int p, long e) {
       if (p > Math.pow(2, profundidadeGlobal))
         return false;
@@ -245,10 +237,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: cria uma nova alocação de buffer com os tamanhos do atual output stream no formato de um vetor de bytes
-    * Entrada: void
-    * Saída: vetor de bytes
-    */
+     * Descrição: cria uma nova alocação de buffer com os tamanhos do atual output
+     * stream no formato de um vetor de bytes Entrada: void Saída: vetor de bytes
+     */
     public byte[] toByteArray() throws IOException {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       DataOutputStream dos = new DataOutputStream(baos);
@@ -263,10 +254,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: recebe um array de bytes e carrega os dados na memoria principal
-    * Entrada: vetor de byte ba
-    * Saída: preenche os elementos do cesto
-    */
+     * Descrição: recebe um array de bytes e carrega os dados na memoria principal
+     * Entrada: vetor de byte ba Saída: preenche os elementos do cesto
+     */
     public void fromByteArray(byte[] ba) throws IOException {
       ByteArrayInputStream bais = new ByteArrayInputStream(ba);
       DataInputStream dis = new DataInputStream(bais);
@@ -281,10 +271,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Retorna os elementos em formato de string.
-    * Entrada: void.
-    * Saída: String s com a descritiva do elemento.
-    */
+     * Descrição: Retorna os elementos em formato de string. Entrada: void. Saída:
+     * String s com a descritiva do elemento.
+     */
     public String toString() {
       String s = "\nProfundidade global: " + profundidadeGlobal;
       int i = 0;
@@ -297,10 +286,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Retorna o endereço do cesto de acordo com a posição.
-    * Entrada: Posição p.
-    * Saída: Endereço do Cesto.
-    */
+     * Descrição: Retorna o endereço do cesto de acordo com a posição. Entrada:
+     * Posição p. Saída: Endereço do Cesto.
+     */
     protected long endereço(int p) {
       if (p > Math.pow(2, profundidadeGlobal))
         return -1;
@@ -308,10 +296,10 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Duplica a quantidade de posições no diretorio se profundidade menor que 127.
-    * Entrada: void.
-    * Saída: Retorna boolean para mostrar se operação foi bem sucedida ou não.
-    */
+     * Descrição: Duplica a quantidade de posições no diretorio se profundidade
+     * menor que 127. Entrada: void. Saída: Retorna boolean para mostrar se operação
+     * foi bem sucedida ou não.
+     */
     protected boolean duplica() {
       if (profundidadeGlobal == 127)
         return false;
@@ -333,21 +321,21 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
     }
 
     /*
-    * Descrição: Calcula o hash de acordo com uma chave recebida e com a profundidade global.
-    * Entrada: Int chave.
-    * Saída: Int hash gerado.
-    * Obs: Para efeito de determinar o cesto em que o elemento deve ser inserido, só serão considerados valores absolutos da chave.
-    */
+     * Descrição: Calcula o hash de acordo com uma chave recebida e com a
+     * profundidade global. Entrada: Int chave. Saída: Int hash gerado. Obs: Para
+     * efeito de determinar o cesto em que o elemento deve ser inserido, só serão
+     * considerados valores absolutos da chave.
+     */
     protected int hash(int chave) {
       return Math.abs(chave) % (int) Math.pow(2, profundidadeGlobal);
     }
 
     /*
-    * Descrição: Calcula o hash de acordo com uma chave e com uma dada profundidade.
-    * Entrada: Int chave.
-    * Saída: Int hash gerado.
-    * Obs: Para efeito de determinar o cesto em que o elemento deve ser inserido, só serão considerados valores absolutos da chave.
-    */
+     * Descrição: Calcula o hash de acordo com uma chave e com uma dada
+     * profundidade. Entrada: Int chave. Saída: Int hash gerado. Obs: Para efeito de
+     * determinar o cesto em que o elemento deve ser inserido, só serão considerados
+     * valores absolutos da chave.
+     */
     protected int hash(int chave, int pl) { // cálculo do hash para uma dada profundidade local
       return Math.abs(chave) % (int) Math.pow(2, pl);
     }
@@ -355,10 +343,10 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
   }
 
   /*
-  * Descrição: Construtor da classe HashExtensivel.
-  * Entrada: Constructor<T>, Int quantidade maxima por cesto, String nome do arquivo para diretorio, Strin nome do arquivo para cestos
-  * Saída: Preenchimento dos atributos da classe.
-  */
+   * Descrição: Construtor da classe HashExtensivel. Entrada: Constructor<T>, Int
+   * quantidade maxima por cesto, String nome do arquivo para diretorio, Strin
+   * nome do arquivo para cestos Saída: Preenchimento dos atributos da classe.
+   */
   public HashExtensivel(Constructor<T> ct, int n, String nd, String nc) throws Exception {
     construtor = ct;
     quantidadeDadosPorCesto = n;
@@ -386,10 +374,10 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
   }
 
   /*
-  * Descrição: Insere novo elemento no cesto, fazendo trocas de posição e novas inserções quando necessário.
-  * Entrada: Elemento T
-  * Saída: Boolean para mostrar se processo ocorreu com sucesso ou não.
-  */
+   * Descrição: Insere novo elemento no cesto, fazendo trocas de posição e novas
+   * inserções quando necessário. Entrada: Elemento T Saída: Boolean para mostrar
+   * se processo ocorreu com sucesso ou não.
+   */
   public boolean create(T elem) throws Exception {
 
     // Carrega o diretório
@@ -465,10 +453,10 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
   }
 
   /*
-  * Descrição: Le os dados do diretorio que possui a chave recebida.
-  * Entrada: Int chave proveniente do hash
-  * Saída: Boolean para mostrar se processo ocorreu com sucesso ou não.
-  */
+   * Descrição: Le os dados do diretorio que possui a chave recebida. Entrada: Int
+   * chave proveniente do hash Saída: Boolean para mostrar se processo ocorreu com
+   * sucesso ou não.
+   */
   public T read(int chave) throws Exception {
 
     // Carrega o diretório
@@ -493,10 +481,11 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
   }
 
   /*
-  * Descrição: Realiza a atualização do elemento recebendo o elemento com as novas informações a serem alteradas.
-  * Entrada: T elem, elemento com os valores atualizados.
-  * Saída: Boolean para mostrar se processo ocorreu com sucesso ou não.
-  */
+   * Descrição: Realiza a atualização do elemento recebendo o elemento com as
+   * novas informações a serem alteradas. Entrada: T elem, elemento com os valores
+   * atualizados. Saída: Boolean para mostrar se processo ocorreu com sucesso ou
+   * não.
+   */
   public boolean update(T elem) throws Exception {
 
     // Carrega o diretório
@@ -529,10 +518,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
   }
 
   /*
-  * Descrição: Deleta um elemento no cesto.
-  * Entrada: Int chave com o valor do hash
-  * Saída: Boolean para mostrar se processo ocorreu com sucesso ou não.
-  */
+   * Descrição: Deleta um elemento no cesto. Entrada: Int chave com o valor do
+   * hash Saída: Boolean para mostrar se processo ocorreu com sucesso ou não.
+   */
   public boolean delete(int chave) throws Exception {
 
     // Carrega o diretório
@@ -564,10 +552,9 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
   }
 
   /*
-  * Descrição: Imprime os diretórios e cestos.
-  * Entrada: void
-  * Saída: Impressão dos elementos do diretório e dos cestos.
-  */
+   * Descrição: Imprime os diretórios e cestos. Entrada: void Saída: Impressão dos
+   * elementos do diretório e dos cestos.
+   */
   public void print() {
     try {
       byte[] bd = new byte[(int) arqDiretorio.length()];
