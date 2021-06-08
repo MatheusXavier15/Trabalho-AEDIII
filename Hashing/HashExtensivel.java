@@ -49,7 +49,7 @@ public class HashExtensivel<T extends RegistroHashExtensivel<T>> {
       quantidadeMaxima = (short) qtdmax;
       elementos = new ArrayList<>(quantidadeMaxima);
       bytesPorElemento = ct.newInstance().size();
-      bytesPorCesto = (short) (bytesPorElemento * quantidadeMaxima + 3);
+      bytesPorCesto = (int) (bytesPorElemento * quantidadeMaxima + 3);
     }
 
     /*
