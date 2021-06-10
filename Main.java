@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Random;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 public class Main {
   public static void main(String[] args) {
@@ -130,14 +131,15 @@ public class Main {
             break;
           }
           case 6: {
-            // insere os dados e testa com SSD
-            realizaTestes(CestosDir, DiretoriosDir, true, false);
-            System.out.println("Analize com SDD finalizada");
+            // insere ou não os dados e testa velocidade de acesso com SSD
+            realizaTestes(CestosDir, DiretoriosDir, true, false, 4);
+            System.out.println("Análise com SDD finalizada\n");
             System.out.println("Pressione Enter para continuar...");
             System.in.read();
-            // insere os dados e testa com HD
-            realizaTestes(CestosDirHD, DiretoriosDirHD, false, false);
-            System.out.println("Analize com HD finalizada");
+
+            // insere ou não os dados e testa velocidade de acesso com HD
+            realizaTestes(CestosDirHD, DiretoriosDirHD, true, false, 4);
+            System.out.println("Análise com HD finalizada\n");
             System.out.println("Pressione Enter para continuar...");
             System.in.read();
           }
@@ -154,20 +156,33 @@ public class Main {
     console.close();
   }
 
+  /*
+   * Descrição: Método utilizado para centralizar ações de teste de velocidade de
+   * execução do código em diferentes ambientes
+   * 
+   * Entrada: Strings CestosDir e DiretoriosDir com o diretorio do arquivo a ser
+   * salvas as informações. Boolean para inserir novos registros ou não. Boolean
+   * para ir pausando o codigo para cada momentno da execução. Um Inteiro com o
+   * tamanho do Cesto/Bucket.
+   * 
+   * Saída: Void. Exibe na tela o resultado obtido da captura de desempenho das
+   * ações de inserir e de buscar dados.
+   */
   public static void realizaTestes(String CestosDir, String DiretoriosDir, Boolean inserirNovosRegistros,
-      Boolean pausarCodigo) {
+      Boolean pausarCodigo, int n) {
     try {
       HashExtensivel<Prontuario> hash;
       Scanner console = new Scanner(System.in);
       long startTime, endTime;
 
+      long timeInsercaoInicio, timeInsercaoFim, timeInsercaoTotal = 0;
       long timeBusca1 = 0;
       long timeBusca2 = 0;
       long timeBusca3 = 0;
       long totalTime1000, totalTime3000, totalTime5000, totalTime7000, totalTime10000, totalTime40000;
       Prontuario temp;
 
-      hash = new HashExtensivel<>(Prontuario.class.getConstructor(), 4, CestosDir, DiretoriosDir);
+      hash = new HashExtensivel<>(Prontuario.class.getConstructor(), n, CestosDir, DiretoriosDir);
 
       if (inserirNovosRegistros) {
         // apaga todos os registros existentes
@@ -179,9 +194,12 @@ public class Main {
 
       // criando dados aleatorios
       if (inserirNovosRegistros) {
+        timeInsercaoInicio = System.nanoTime();
         System.out.println("\nCriando dados aleatórios (1 mil dados, CPFs de 100000000 até 100001000)");
-        inserirDadosAleatorios(0, 1000, CestosDir, DiretoriosDir);
+        inserirDadosAleatorios(0, 1000, CestosDir, DiretoriosDir, n);
         System.out.println("\nDados com CPFs de 100000000 até 100001000 inseridos");
+        timeInsercaoFim = System.nanoTime();
+        timeInsercaoTotal += (timeInsercaoFim - timeInsercaoInicio);
       }
 
       // realizando busca para medir tempo gasto pela busca de 1000 registros
@@ -216,9 +234,12 @@ public class Main {
 
       // criando dados aleatorios
       if (inserirNovosRegistros) {
+        timeInsercaoInicio = System.nanoTime();
         System.out.println("\nCriando dados aleatórios (Inserindo CPFs de 100001001 até 100003000)");
-        inserirDadosAleatorios(1001, 3000, CestosDir, DiretoriosDir);
+        inserirDadosAleatorios(1001, 3000, CestosDir, DiretoriosDir, n);
         System.out.println("\nDados com CPFs de 100001001 até 100003000 inseridos");
+        timeInsercaoFim = System.nanoTime();
+        timeInsercaoTotal += (timeInsercaoFim - timeInsercaoInicio);
       }
 
       // realizando busca para medir tempo gasto pela busca de 3000 registros
@@ -253,9 +274,12 @@ public class Main {
 
       // criando dados aleatorios
       if (inserirNovosRegistros) {
+        timeInsercaoInicio = System.nanoTime();
         System.out.println("\nCriando dados aleatórios (Inserindo CPFs de 100003001 até 100005000)");
-        inserirDadosAleatorios(3001, 5000, CestosDir, DiretoriosDir);
+        inserirDadosAleatorios(3001, 5000, CestosDir, DiretoriosDir, n);
         System.out.println("\nDados com CPFs de 100003001 até 100005000 inseridos");
+        timeInsercaoFim = System.nanoTime();
+        timeInsercaoTotal += (timeInsercaoFim - timeInsercaoInicio);
       }
 
       // realizando busca para medir tempo gasto pela busca de 3000 registros
@@ -293,9 +317,12 @@ public class Main {
 
       // criando dados aleatorios
       if (inserirNovosRegistros) {
+        timeInsercaoInicio = System.nanoTime();
         System.out.println("\nCriando dados aleatórios (Inserindo CPFs de 100005001 até 100007000)");
-        inserirDadosAleatorios(5001, 7000, CestosDir, DiretoriosDir);
+        inserirDadosAleatorios(5001, 7000, CestosDir, DiretoriosDir, n);
         System.out.println("\nDados com CPFs de 100005001 até 100007000 inseridos");
+        timeInsercaoFim = System.nanoTime();
+        timeInsercaoTotal += (timeInsercaoFim - timeInsercaoInicio);
       }
 
       // realizando busca para medir tempo gasto pela busca de 3000 registros
@@ -330,9 +357,12 @@ public class Main {
 
       // criando dados aleatorios
       if (inserirNovosRegistros) {
+        timeInsercaoInicio = System.nanoTime();
         System.out.println("\nCriando dados aleatórios (Inserindo CPFs de 100007001 até 100010000)");
-        inserirDadosAleatorios(7001, 10000, CestosDir, DiretoriosDir);
+        inserirDadosAleatorios(7001, 10000, CestosDir, DiretoriosDir, n);
         System.out.println("\nDados com CPFs de 100005001 até 100007000 inseridos");
+        timeInsercaoFim = System.nanoTime();
+        timeInsercaoTotal += (timeInsercaoFim - timeInsercaoInicio);
       }
 
       // realizando busca para medir tempo gasto pela busca de 10000 registros
@@ -366,12 +396,16 @@ public class Main {
       }
 
       if (inserirNovosRegistros) {
+        timeInsercaoInicio = System.nanoTime();
         System.out.println("\nCriando dados aleatórios (Inserindo CPFs de 100010001 até 100025000)");
-        inserirDadosAleatorios(10001, 25000, CestosDir, DiretoriosDir);
+        inserirDadosAleatorios(10001, 25000, CestosDir, DiretoriosDir, n);
         System.out.println("\nDados com CPFs de 100010001 até 100025000 inseridos");
+        timeInsercaoFim = System.nanoTime();
+        timeInsercaoTotal += (timeInsercaoFim - timeInsercaoInicio);
       }
 
       // realizando busca para medir tempo gasto pela busca de 10000 registros
+      System.out.println("\nCriando dados aleatórios (Inserindo CPFs de 100010001 até 100025000)");
       System.out.println("\nRealizando a busca do registro 100014500");
       startTime = System.nanoTime();
       temp = hash.read("100014500".hashCode());
@@ -396,6 +430,11 @@ public class Main {
       totalTime40000 = ((timeBusca1 + timeBusca2 + timeBusca3) / 3);
       System.out.println("\nMédia de tempo gasto nas ultimas 3 buscas em nanosegundos: " + totalTime40000);
 
+      // relatorio final
+      System.out.println("\nQuantidade de elementos por Cesto/Bucket: " + n);
+      System.out.println("\nTempo total gasto para inserir todos os dados: " + timeInsercaoTotal);
+      System.out.println("Nanosegundos: " + timeInsercaoTotal);
+      System.out.println("Segundos: " + NANOSECONDS.toSeconds(timeInsercaoTotal));
       System.out.println("\nTempo médio gasto para buscar dados: ");
       System.out.println("1000 registros: " + totalTime1000);
       System.out.println("3000 registros: " + totalTime3000);
@@ -403,16 +442,26 @@ public class Main {
       System.out.println("7000 registros: " + totalTime7000);
       System.out.println("10000 registros: " + totalTime10000);
       System.out.println("40000 registros: " + totalTime40000);
-      console.close();
+      // console.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  public static void inserirDadosAleatorios(int valorInicial, int valorFinal, String CestosDir, String DiretoriosDir) {
+  /*
+   * Descrição: Método para inserir dados gerados aleatoriamente
+   * 
+   * Entrada: Strings com valor inicial e final para um range de CPFs. Strings
+   * CestosDir e DiretoriosDir com o diretorio do arquivo a ser salvas as
+   * informações e um inteiro N com o tamnho do Cesto/Bucket.
+   * 
+   * Saída: Void. Insere os dados gerados aleatoriamente
+   */
+  public static void inserirDadosAleatorios(int valorInicial, int valorFinal, String CestosDir, String DiretoriosDir,
+      int n) {
     try {
       HashExtensivel<Prontuario> hash;
-      hash = new HashExtensivel<>(Prontuario.class.getConstructor(), 4, CestosDir, DiretoriosDir);
+      hash = new HashExtensivel<>(Prontuario.class.getConstructor(), n, CestosDir, DiretoriosDir);
 
       // opção para inserir dados aleatorios
       System.out.println("Inserindo dados de teste: ");
@@ -442,6 +491,13 @@ public class Main {
     }
   }
 
+  /*
+   * Descrição: Gera sexo (masculinno e feminino) de forma aleatoria.
+   * 
+   * Entrada: Random gerador.
+   * 
+   * Saída: Retorna String "Masculino" ou "Feminino".
+   */
   public static String gerarSexoAleatorio(Random gerador) {
     if (gerador.nextInt(2) == 0) {
       return "Feminino";
@@ -449,10 +505,24 @@ public class Main {
     return "Masculino";
   }
 
+  /*
+   * Descrição: Gera data de forma aleatoria com ano de 1984 fixo.
+   * 
+   * Entrada: Random gerador.
+   * 
+   * Saída: Retorna String com data aleatoria gerada.
+   */
   public static String gerarDataAleatoria(Random gerador) {
     return (gerador.nextInt(31)) + 1 + "-" + (gerador.nextInt(12) + 1) + "-" + "1984";
   }
 
+  /*
+   * Descrição: Gera String aleatoria para representar o diagnostico médido.
+   * 
+   * Entrada: Random gerador.
+   * 
+   * Saída: Retorna String com dado aleatorio.
+   */
   public static String gerarDiagnosticoAleatorio(Random gerador) {
     String diagnostico = "Diagnostico_teste_";
     String palavra;
@@ -466,6 +536,14 @@ public class Main {
     return diagnostico;
   }
 
+  /*
+   * Descrição: Gera String aleatoria para representar o um nome para fins de
+   * teste.
+   * 
+   * Entrada: Random gerador.
+   * 
+   * Saída: Retorna String com nome aleatorio.
+   */
   public static String gerarNomeAleatorio(Random gerador) {
     String diagnostico = "Nome_teste_";
     for (int y = 0; y < 10; y++) {
