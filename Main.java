@@ -179,7 +179,7 @@ public class Main {
       long timeBusca1 = 0;
       long timeBusca2 = 0;
       long timeBusca3 = 0;
-      long totalTime1000, totalTime3000, totalTime5000, totalTime7000, totalTime10000, totalTime40000;
+      long totalTime1000, totalTime3000, totalTime5000, totalTime7000, totalTime10000, totalTime25000;
       Prontuario temp;
 
       hash = new HashExtensivel<>(Prontuario.class.getConstructor(), n, CestosDir, DiretoriosDir);
@@ -427,8 +427,8 @@ public class Main {
       endTime = System.nanoTime();
       timeBusca3 += (endTime - startTime);
       System.out.println("Tempo de busca em nanosegundos: " + timeBusca3);
-      totalTime40000 = ((timeBusca1 + timeBusca2 + timeBusca3) / 3);
-      System.out.println("\nMédia de tempo gasto nas ultimas 3 buscas em nanosegundos: " + totalTime40000);
+      totalTime25000 = ((timeBusca1 + timeBusca2 + timeBusca3) / 3);
+      System.out.println("\nMédia de tempo gasto nas ultimas 3 buscas em nanosegundos: " + totalTime25000);
 
       // relatorio final
       System.out.println("\nQuantidade de elementos por Cesto/Bucket: " + n);
@@ -441,7 +441,7 @@ public class Main {
       System.out.println("5000 registros: " + totalTime5000);
       System.out.println("7000 registros: " + totalTime7000);
       System.out.println("10000 registros: " + totalTime10000);
-      System.out.println("40000 registros: " + totalTime40000);
+      System.out.println("25000 registros: " + totalTime25000);
       // console.close();
     } catch (Exception e) {
       e.printStackTrace();
@@ -478,13 +478,12 @@ public class Main {
         data_nasc = gerarDataAleatoria(gerador);
         sexo = gerarSexoAleatorio(gerador);
         diagnostico = gerarDiagnosticoAleatorio(gerador);
-        // System.out.println("Nome: " + nome);
         System.out.println("CPF: " + cpf);
+        // System.out.println("Nome: " + nome);
         // System.out.println("Data Nascimento: " + data_nasc);
         // System.out.println("Sexo: " + sexo);
         // System.out.println("Diagnostico: " + diagnostico + "\n");
         hash.create(new Prontuario(nome, data_nasc, sexo, diagnostico, cpf));
-        // hash.print();
       }
     } catch (Exception e) {
       e.printStackTrace();
